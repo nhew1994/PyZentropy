@@ -53,9 +53,16 @@ def scale_phonon_dos(input_path, output_path=None, num_atoms=5, plot=False):
 
     os.chdir(original_path)
     
+    def plot_phonon_dos(path):
+        pass
     
-    #1. Scale phonon DOS
-    #2. Harmonic phonon calculations
-    #3. Quasiharmonic phonon calculations
+    #2. Harmonic phonon calculations - Calculate the free energy, entropy, and cv for each structure and fit to an EOS
+    def load_phonon_dos():
+        pass
+    
+    def harmonic():
+        pass
+    
+    #3. Quasiharmonic phonon calculations - 
     #4. Partition function (Zentropy)
     #5. Properties at fixed P

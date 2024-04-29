@@ -1,6 +1,7 @@
 import os
 import shutil
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 
@@ -14,13 +15,17 @@ def load_phonon_dos(path):
     volph_files = [file for file in file_list if file.startswith("volph_")]
     vdos_files.sort()
     volph_files.sort()
-    vdos_data = {file: np.loadtxt(file) for file in vdos_files}
-    volph_data = {file: np.loadtxt(file) for file in volph_files}
-
+    
+    volph_content = [float(open(file).readline().strip()) for file in volph_files]
+    vdos_data = {volph_content[i]: pd.read_csv(vdos_files[i], sep="\s+", header=None, names=['Frequency (Hz)', 'DOS (1/Hz)']) 
+                 for i in range(len(vdos_files))}
+    
     os.chdir(original_path)
-    return vdos_data, volph_data
+    return vdos_data
+
 
 def scale_phonon_dos(input_path, output_path=None, num_atoms=5, plot=False):
+    #TODO: consider using a pandas dataframe instead of a numpy array
     """Scales the area under the phonon DOS to 3N, where N is the number of atoms.
     YPHON normalizes the area to 3N.
     """
